@@ -8,4 +8,4 @@ services:
     ports:
       - "9005:9005"
     env_file:
-      - .env.prod
+      - .env.prod.satkom
