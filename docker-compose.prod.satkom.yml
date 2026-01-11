@@ -1,0 +1,11 @@
+services:
+  frontend:
+    container_name: log_internal_biod_satkom_frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.satkom
+    restart: always
+    ports:
+      - "9005:9005"
+    env_file:
+      - .env.prod

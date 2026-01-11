@@ -106,8 +106,8 @@ export default function LogPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
-        <div className="animate-pulse text-slate-500 dark:text-slate-400">
+      <div className="min-h-screen bg-orange-50/30 dark:bg-[#0c0a09] flex items-center justify-center">
+        <div className="animate-pulse text-slate-500 dark:text-stone-400">
           Loading...
         </div>
       </div>
@@ -116,27 +116,27 @@ export default function LogPage() {
 
   if (!data) {
     return (
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 flex items-center justify-center">
+      <div className="min-h-screen bg-orange-50/30 dark:bg-[#0c0a09] flex items-center justify-center">
         <div className="text-red-500">Failed to load data</div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 p-8 font-sans">
+    <div className="min-h-screen bg-orange-50/30 dark:bg-[#0c0a09] p-8 font-sans">
       <div className="max-w-7xl mx-auto">
         <header className="mb-8 flex justify-between items-start">
           <div>
-            <h1 className="text-3xl font-bold text-slate-800 dark:text-slate-100">
-              Log Internal BIOD Sepakat
+            <h1 className="text-3xl font-bold text-slate-800 dark:text-stone-100">
+              Log Internal BIOD Satkom
             </h1>
-            <p className="text-slate-500 dark:text-slate-400 mt-2">
+            <p className="text-slate-500 dark:text-stone-400 mt-2">
               Menampilkan log response API
             </p>
           </div>
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors cursor-pointer"
+            className="p-2 rounded-full bg-slate-200 dark:bg-[#1c1917] text-slate-800 dark:text-stone-200 hover:bg-slate-300 dark:hover:bg-[#292524] transition-colors cursor-pointer"
             aria-label="Toggle Dark Mode"
           >
             {isDarkMode ? (
@@ -173,24 +173,24 @@ export default function LogPage() {
           </button>
         </header>
 
-        <div className="bg-white dark:bg-slate-800 shadow-lg shadow-blue-900/5 rounded-xl overflow-hidden border border-blue-100 dark:border-slate-700">
-          <div className="p-4 border-b border-blue-100 dark:border-slate-700 bg-blue-50/50 dark:bg-slate-800/50 flex justify-between items-center">
+        <div className="bg-orange-50 dark:bg-orange-950 shadow-lg shadow-orange-900/20 rounded-xl overflow-hidden border border-orange-200 dark:border-orange-900">
+          <div className="p-4 border-b border-orange-200 dark:border-orange-900 bg-orange-100/80 dark:bg-orange-900/50 flex justify-between items-center">
             <div className="flex gap-4">
-              <span className="px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border border-green-200 dark:border-green-800">
+              <span className="px-3 py-1 rounded-full text-xs font-medium bg-white/50 text-orange-800 dark:bg-black/20 dark:text-orange-200 border border-orange-200 dark:border-orange-800">
                 Status: {data.status_code}
               </span>
-              <span className="px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+              <span className="px-3 py-1 rounded-full text-xs font-medium bg-orange-200/50 text-orange-900 dark:bg-orange-800/50 dark:text-orange-100 border border-orange-300 dark:border-orange-700">
                 Message: {data.message}
               </span>
             </div>
-            <div className="text-sm text-slate-500 dark:text-slate-400">
+            <div className="text-sm text-orange-700 dark:text-orange-300">
               Total Data: {data.data.length}
             </div>
           </div>
 
           <div className="overflow-x-auto">
-            <table className="w-full text-left text-sm text-slate-600 dark:text-slate-300">
-              <thead className="bg-blue-50/80 dark:bg-slate-900/50 uppercase font-semibold text-slate-700 dark:text-slate-200">
+            <table className="w-full text-left text-sm text-orange-900 dark:text-orange-100">
+              <thead className="bg-orange-200 dark:bg-orange-900 uppercase font-semibold text-orange-900 dark:text-orange-50">
                 <tr>
                   <th className="px-6 py-4">Timestamp</th>
                   <th className="px-6 py-4">NIK</th>
@@ -199,16 +199,16 @@ export default function LogPage() {
                   <th className="px-6 py-4 text-right">Aksi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-blue-50 dark:divide-slate-700">
+              <tbody className="divide-y divide-orange-200 dark:divide-orange-800">
                 {data.data.length === 0 ? (
                   <tr>
                     <td
                       colSpan={5}
-                      className="px-6 py-12 text-center text-slate-500 dark:text-slate-400"
+                      className="px-6 py-12 text-center text-orange-500 dark:text-orange-300"
                     >
                       <div className="flex flex-col items-center gap-2">
                         <svg
-                          className="w-12 h-12 text-slate-300"
+                          className="w-12 h-12 text-orange-300 dark:text-orange-700"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -230,20 +230,20 @@ export default function LogPage() {
                   data.data.map((item) => (
                     <React.Fragment key={item.ID}>
                     <tr
-                      className={`hover:bg-blue-50/50 dark:hover:bg-slate-700/50 transition-colors cursor-pointer ${
+                      className={`hover:bg-orange-100 dark:hover:bg-orange-800 transition-colors cursor-pointer ${
                         expandedRow === item.ID
-                          ? "bg-blue-50/80 dark:bg-blue-900/20"
+                          ? "bg-orange-100 dark:bg-orange-800"
                           : ""
                       }`}
                       onClick={() => toggleRow(item.ID)}
                     >
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 whitespace-nowrap text-orange-800 dark:text-orange-200">
                         {new Date(item.CreatedAt).toLocaleString()}
                       </td>
-                      <td className="px-6 py-4 font-mono text-slate-700 dark:text-slate-300">
+                      <td className="px-6 py-4 font-mono text-orange-700 dark:text-orange-300">
                         {item.NIK}
                       </td>
-                      <td className="px-6 py-4 font-medium text-slate-900 dark:text-white">
+                      <td className="px-6 py-4 font-medium text-orange-900 dark:text-orange-50">
                         {item.Nama}
                       </td>
                       <td className="px-6 py-4">
@@ -262,18 +262,18 @@ export default function LogPage() {
                         </div>
                       </td>
                       <td className="px-6 py-4 text-right">
-                        <button className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 font-medium text-sm focus:outline-none transition-colors">
+                        <button className="text-orange-600 hover:text-orange-800 dark:text-orange-400 dark:hover:text-orange-300 font-medium text-sm focus:outline-none transition-colors">
                           {expandedRow === item.ID ? "Tutup" : "Detail"}
                         </button>
                       </td>
                     </tr>
                     {expandedRow === item.ID && (
-                      <tr className="bg-blue-50/30 dark:bg-slate-900/30">
+                      <tr className="bg-orange-50 dark:bg-orange-900/30 border-t border-orange-200 dark:border-orange-800">
                         <td colSpan={5} className="px-6 py-6">
                           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 animate-in fade-in slide-in-from-top-2 duration-200">
                             {/* Personal Info */}
                             <div className="space-y-4">
-                              <h3 className="font-semibold text-blue-900 dark:text-blue-100 border-b border-blue-100 dark:border-slate-700 pb-2 flex items-center gap-2">
+                              <h3 className="font-semibold text-orange-900 dark:text-orange-100 border-b border-orange-200 dark:border-orange-800 pb-2 flex items-center gap-2">
                                 <svg
                                   className="w-4 h-4"
                                   fill="none"
@@ -292,13 +292,13 @@ export default function LogPage() {
 
                               {item.FotoBase64 ? (
                                 <div className="mb-4">
-                                  <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider block mb-2">
+                                  <span className="text-xs text-gray-500 dark:text-stone-400 uppercase tracking-wider block mb-2">
                                     Foto
                                   </span>
                                   <img
                                     src={item.FotoBase64}
                                     alt="Foto"
-                                    className="w-32 h-40 object-cover rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer hover:opacity-90 transition-opacity"
+                                    className="w-32 h-40 object-cover rounded-lg shadow-sm border border-orange-200 dark:border-orange-700 cursor-pointer hover:opacity-90 transition-opacity"
                                     onClick={() =>
                                       setSelectedImage({
                                         src: item.FotoBase64,
@@ -352,7 +352,7 @@ export default function LogPage() {
 
                             {/* Address Info */}
                             <div className="space-y-4">
-                              <h3 className="font-semibold text-blue-900 dark:text-blue-100 border-b border-blue-100 dark:border-slate-700 pb-2 flex items-center gap-2">
+                              <h3 className="font-semibold text-orange-900 dark:text-orange-100 border-b border-orange-200 dark:border-orange-800 pb-2 flex items-center gap-2">
                                 <svg
                                   className="w-4 h-4"
                                   fill="none"
@@ -399,7 +399,7 @@ export default function LogPage() {
 
                             {/* System Info & Biometrics */}
                             <div className="space-y-4">
-                              <h3 className="font-semibold text-blue-900 dark:text-blue-100 border-b border-blue-100 dark:border-slate-700 pb-2 flex items-center gap-2">
+                              <h3 className="font-semibold text-orange-900 dark:text-orange-100 border-b border-orange-200 dark:border-orange-800 pb-2 flex items-center gap-2">
                                 <svg
                                   className="w-4 h-4"
                                   fill="none"
@@ -456,10 +456,10 @@ export default function LogPage() {
           onClick={() => setSelectedImage(null)}
         >
           <div
-            className="bg-white dark:bg-zinc-900 rounded-lg max-w-3xl max-h-[90vh] overflow-hidden shadow-xl flex flex-col"
+            className="bg-white dark:bg-[#1c1917] rounded-lg max-w-3xl max-h-[90vh] overflow-hidden shadow-xl flex flex-col"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="p-4 border-b border-gray-200 dark:border-zinc-700 flex justify-between items-center">
+            <div className="p-4 border-b border-gray-200 dark:border-stone-700 flex justify-between items-center">
               <h3 className="font-semibold text-lg dark:text-white">
                 {selectedImage.title}
               </h3>
@@ -531,10 +531,10 @@ function DetailItem({
 }) {
   return (
     <div className="flex flex-col">
-      <span className="text-xs text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+      <span className="text-xs text-orange-600 dark:text-orange-400 uppercase tracking-wider">
         {label}
       </span>
-      <div className="text-sm font-medium text-gray-900 dark:text-gray-200 break-all flex items-center gap-2">
+      <div className="text-sm font-medium text-orange-900 dark:text-orange-100 break-all flex items-center gap-2">
         {value || "-"}
         {copyable && value && (
           <button
@@ -542,7 +542,7 @@ function DetailItem({
               e.stopPropagation();
               navigator.clipboard.writeText(String(value));
             }}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            className="text-orange-400 hover:text-orange-600 dark:hover:text-orange-300"
             title="Copy"
           >
             <svg
@@ -596,7 +596,7 @@ function Badge({
 }) {
   if (disabled) {
     return (
-      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-zinc-700">
+      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-400 dark:bg-gray-800 dark:text-gray-500 cursor-not-allowed border border-gray-200 dark:border-stone-700">
         {label}
       </span>
     );
@@ -605,7 +605,7 @@ function Badge({
   return (
     <button
       onClick={onClick}
-      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors cursor-pointer border border-blue-200 dark:border-blue-800/50"
+      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300 hover:bg-orange-200 dark:hover:bg-orange-900/50 transition-colors cursor-pointer border border-orange-200 dark:border-orange-800/50"
     >
       {label}
     </button>
