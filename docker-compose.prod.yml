@@ -1,0 +1,11 @@
+services:
+  frontend:
+    container_name: log_internal_biod_sepakat_frontend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "9004:9004"
+    env_file:
+      - .env.prod
