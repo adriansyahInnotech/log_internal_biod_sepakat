@@ -1,6 +1,7 @@
 services:
   frontend:
     container_name: log_internal_biod_satkom_frontend
+    image: log_internal_biod:satkom
     build:
       context: .
       dockerfile: Dockerfile.satkom
