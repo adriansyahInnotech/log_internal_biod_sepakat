@@ -7,7 +7,7 @@ WORKDIR /app
 RUN corepack enable && corepack prepare yarn@stable --activate
 
 # Copy dependency files terlebih dahulu (agar cache lebih efisien)
-COPY package.json ./
+COPY package.json yarn.lock ./
 
 # Install dependencies (pakai frozen lockfile agar reproducible)
 RUN yarn install --immutable
