@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { decryptLogInternalAES } from "./helpers/crypto";
 
 interface LogEntry {
   ID: string;
@@ -86,7 +87,13 @@ export default function LogPage() {
       try {
         const res = await fetch("/api/biod/v1/log_internal");
         const data = await res.json();
-        setData(data);
+        const decryptedJson = await decryptLogInternalAES(data.data as string);
+        const decryptedData = JSON.parse(decryptedJson);
+        const transformed = {
+          ...data,
+          data: decryptedData,
+        };
+        setData(transformed);
         setLoading(false);
       } catch (err) {
         console.error("Failed to fetch data", err);
