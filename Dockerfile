@@ -10,7 +10,7 @@ RUN corepack enable && corepack prepare yarn@stable --activate
 COPY package.json ./
 
 # Install dependencies (pakai frozen lockfile agar reproducible)
-RUN yarn install --frozen-lockfile
+RUN yarn install --immutable
 
 # Copy semua source code
 COPY . .
