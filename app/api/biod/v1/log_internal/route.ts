@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { decryptLogInternalAES } from '@/app/helpers/crypto';
 
 export async function GET() {
   try {
@@ -28,7 +29,21 @@ export async function GET() {
     }
 
     const data = await response.json();
-    return NextResponse.json(data);
+
+    const encryptedData = data.data as string;
+    if (typeof encryptedData !== 'string') {
+      throw new Error('Expected encrypted data as string');
+    }
+
+    const decryptedJson = decryptLogInternalAES(encryptedData);
+    const decryptedData = JSON.parse(decryptedJson);
+
+    const transformed = {
+      ...data,
+      data: decryptedData,
+    };
+
+    return NextResponse.json(transformed);
   } catch (error) {
     console.error('Error fetching data:', error);
     return NextResponse.json(
