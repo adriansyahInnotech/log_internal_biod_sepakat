@@ -24,7 +24,7 @@ FROM node:22-alpine AS runner
 
 WORKDIR /app
 
-ENV NODE_ENV=production
+ENV NODE_ENV=prod
 
 # Copy build output and node_modules
 COPY --from=builder /app/.next ./.next
