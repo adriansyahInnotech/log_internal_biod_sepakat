@@ -1,3 +1,4 @@
+"use client";
 import CryptoJS from "crypto-js";
 
 function base64ToUint8Array(base64: string) {

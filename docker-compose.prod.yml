@@ -4,8 +4,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_SECRET_KEY_LOG_INTERNAL: ${NEXT_PUBLIC_SECRET_KEY_LOG_INTERNAL}
     restart: always
     ports:
       - "9004:9004"
