@@ -1,43 +1,36 @@
-FROM node:20-alpine AS base
+# --- Stage 1: Build the app ---
+FROM node:22-alpine AS builder
 
-FROM base AS deps
-RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY package.json package-lock.json* ./
-RUN npm ci
+# Enable Yarn via Corepack (optional, tapi direkomendasikan)
+RUN corepack enable && corepack prepare yarn@stable --activate
 
-FROM base AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
+# Copy dependency files terlebih dahulu (agar cache lebih efisien)
+COPY package.json yarn.lock ./
+
+# Install dependencies (pakai frozen lockfile agar reproducible)
+RUN yarn install --frozen-lockfile
+
+# Copy semua source code
 COPY . .
 
-# ARG NEXT_PUBLIC_SECRET_KEY_LOG_INTERNAL
-# ENV NEXT_PUBLIC_SECRET_KEY_LOG_INTERNAL=$NEXT_PUBLIC_SECRET_KEY_LOG_INTERNAL
-# ENV NEXT_TELEMETRY_DISABLED=1
+# Build Next.js app
+RUN yarn build
 
-RUN npm run build
+# --- Stage 2: Run the app ---
+FROM node:22-alpine
 
-FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
+RUN corepack enable && corepack prepare yarn@stable --activate
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
+# Copy hasil build dari stage builder
 COPY --from=builder /app/public ./public
-
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-USER nextjs
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
 
 EXPOSE 9004
-ENV PORT=9004
 
-CMD ["node", "server.js"]
+CMD ["yarn", "start"]
