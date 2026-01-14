@@ -1,36 +1,39 @@
-# --- Stage 1: Build the app ---
+# ===============================
+# Stage 1: Builder
+# ===============================
 FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Enable Yarn via Corepack (optional, tapi direkomendasikan)
-RUN corepack enable && corepack prepare yarn@stable --activate
+# Copy dependency files
+COPY package.json package-lock.json ./
 
-# Copy dependency files terlebih dahulu (agar cache lebih efisien)
-COPY package.json yarn.lock .yarnrc.yml ./
+# Install dependencies
+RUN npm ci
 
-# Install dependencies (pakai frozen lockfile agar reproducible)
-RUN yarn install --immutable
-
-# Copy semua source code
+# Copy source code
 COPY . .
 
-# Build Next.js app
-RUN yarn build
+# Build Next.js
+RUN npm run build
 
-# --- Stage 2: Run the app ---
-FROM node:22-alpine
+# ===============================
+# Stage 2: Runner
+# ===============================
+FROM node:22-alpine AS runner
 
 WORKDIR /app
 
-RUN corepack enable && corepack prepare yarn@stable --activate
+ENV NODE_ENV=production
 
-# Copy hasil build dari stage builder
-COPY --from=builder /app/public ./public
+# Copy build output and node_modules
 COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 
+# Expose port default Next.js
 EXPOSE 9004
 
-CMD ["yarn", "start"]
+# Start Next.js
+CMD ["npm", "start"]
