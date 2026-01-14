@@ -296,12 +296,12 @@ export default function LogPage() {
                                     Foto
                                   </span>
                                   <img
-                                    src={item.FotoBase64}
+                                    src={`data:image/png;base64,${item.FotoBase64}`}
                                     alt="Foto"
                                     className="w-32 h-40 object-cover rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 cursor-pointer hover:opacity-90 transition-opacity"
                                     onClick={() =>
                                       setSelectedImage({
-                                        src: item.FotoBase64,
+                                        src: `data:image/png;base64,${item.FotoBase64}`,
                                         title: "Foto",
                                       })
                                     }
