@@ -16,6 +16,11 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# ⬇️⬇️⬇️ INI YANG KURANG ⬇️⬇️⬇️
+ARG NEXT_PUBLIC_SECRET_KEY_LOG_INTERNAL
+ENV NEXT_PUBLIC_SECRET_KEY_LOG_INTERNAL=$NEXT_PUBLIC_SECRET_KEY_LOG_INTERNAL
+# ⬆️⬆️⬆️ WAJIB SEBELUM BUILD ⬆️⬆️⬆️
+
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
