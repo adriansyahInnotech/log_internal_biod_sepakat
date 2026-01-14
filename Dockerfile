@@ -6,7 +6,7 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Copy dependency files
-COPY .env.prod .env.production
+COPY .env.prod.satkom .env.production
 COPY package.json package-lock.json ./
 
 # Install dependencies
@@ -34,7 +34,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/package.json ./
 
 # Expose port default Next.js
-EXPOSE 9004
+EXPOSE 9005
 
 # Start Next.js
 CMD ["npm", "start"]
