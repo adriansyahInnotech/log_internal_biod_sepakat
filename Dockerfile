@@ -6,6 +6,7 @@ FROM node:22-alpine AS builder
 WORKDIR /app
 
 # Copy dependency files
+COPY .env.prod .env.production
 COPY package.json package-lock.json ./
 
 # Install dependencies
@@ -24,7 +25,7 @@ FROM node:22-alpine AS runner
 
 WORKDIR /app
 
-ENV NODE_ENV=prod
+ENV NODE_ENV=production
 
 # Copy build output and node_modules
 COPY --from=builder /app/.next ./.next
